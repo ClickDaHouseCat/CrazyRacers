@@ -1,0 +1,182 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.body {
+    max-width: 1440px;
+    width: 100%;
+    margin: auto;
+    box-shadow:  0px 5px 10px 2px rgba(34, 60, 80, 0.2);
+    height: 100vh;
+}
+
+h1{
+    margin: auto;
+    width: 100px;
+}
+
+.field{
+    position: relative;
+}
+
+.road{
+    position: relative;
+    max-width: 1200px;
+    width: 100%;
+    margin: auto;
+}
+
+.road1{
+    max-width: 1200px;
+    width: 100%;
+    height: 200px;
+    background: url('./assets/gif/road.gif')  repeat;
+    overflow-x: hidden;
+}
+
+.info{
+    display: flex;
+    width: 100%;
+    max-width: 1200px;
+    margin: auto;
+    justify-content: space-around;
+    padding-top: 30px;
+}
+
+.characters{
+    position: absolute;
+    z-index: 3;
+}
+
+.character{
+    height: 150px;
+    width: 150px;
+    transition: transform 1s ease;
+    /* animation: slideRight 10s linear infinite; */
+}
+/*
+@keyframes slideRight {
+    0% {
+        transform: translateX(0);
+    }
+    25% {
+        transform: translateX(150%);
+    }
+    50% {
+        transform: translateX(300%);
+    }
+    75% {
+        transform: translateX(450%);
+    }
+    100% {
+        transform: translateX(800%);
+    }
+} */
+
+
+.character1{
+    background: url('./assets/gif/turtlecoin-horse.gif') center no-repeat;
+    background-size: cover;
+    position: absolute;
+}
+.character2{
+    background: url('./assets/gif/blue-blue-horse.gif') no-repeat;
+    background-size: cover;
+    transform: scaleX(-1)
+}
+.character3{
+    background: url('./assets/gif/horse-joypixels.gif') no-repeat;
+    background-size: cover;
+    transform: scaleX(-1)
+}
+.character4{
+    background: url('./assets/gif/sports-football.gif') no-repeat;
+    background-size: cover;
+}
+
+.character1Stop{
+    background: url('./assets/png/turtlecoin-horse.png') center no-repeat;
+    background-size: cover;
+    position: absolute;
+}
+.character2Stop{
+    background: url('./assets/png/blue-blue-horse.png') no-repeat;
+    background-size: cover;
+    transform: scaleX(-1)
+}
+.character3Stop{
+    background: url('./assets/png/horse-joypixels.png') no-repeat;
+    background-size: cover;
+    transform: scaleX(-1)
+}
+.character4Stop{
+    background: url('./assets/png/sports-football.png') no-repeat;
+    background-size: cover;
+}
+
+.finish{
+    position: relative;
+    z-index: 3;
+    width: 100%;
+    max-width: 1200px;
+    height: 100vh;
+    background: white;
+    opacity: 1;
+    backdrop-filter: blur(15px);
+    transition: 1s ease-in-out;
+    display: none;
+}
+
+.win{
+    position: absolute;
+    width: 300px;
+    height: 300px;
+}
+
+.win1{
+    background: url('./assets/gif/funderyay-number1.gif');
+    background-size: cover;
+    right: 0;
+}
+
+.win2{
+    background: url('./assets/gif/gordyfit-gebärdensprache.gif');
+    background-size: cover;
+    right: 0;
+    bottom: 0;
+}
+
+.win3{
+    background: url('./assets/gif/party-feestje.gif');
+    background-size: cover;
+
+}
+
+.win5{
+    background: url('./assets/gif/trump-trump-dance.gif');
+    background-size: cover;
+    bottom: 0;
+}
+
+.win4{
+    background: url('./assets/gif/trophy-joypixels.gif');
+    background-size: cover;
+    top: 225px;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    margin: auto;
+}
+
+.win6{
+    background: url('./assets/gif/turtlecoin-horse.gif') center no-repeat;
+    background-size: cover;
+    width: 150px;
+    height: 150px;
+    top: -50px;
+    bottom: 0;
+    right: -50px;
+    left: 0;
+    margin: auto;
+}
