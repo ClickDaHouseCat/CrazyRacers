@@ -51,17 +51,17 @@
     height: 100px;
 }
 
-.winner-container{
-    position: absolute;
-    z-index: 1;
-    bottom: 0;
-    top: 0;
-    right: 0;
-    left: 0;
+#winner-container{
+    width: 200px;
     margin: auto;
 }
 
 #winner-image{
-    width: 200px;
+    width: 250px;
     height: 200px;
+}
+
+#runner-images img {
+    width: 100px;
+    height: 100px;
 }

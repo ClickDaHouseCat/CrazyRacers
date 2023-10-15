@@ -4,19 +4,56 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
-  <script src="script.js" defer></script>
+
   <title>Move Images</title>
 </head>
 <body>
-  <div id="winner-container" style="display: none;">
-    <h2 id="winner-message">Победитель: <span id="winner-name"></span></h2>
-    <img id="winner-image" src="" alt="Изображение победителя">
-  </div>
   <div class="image-container">
     <div class="road"><div class="ch" id="ch1" data-player="1"></div></div>
     <div class="road"><div class="ch" id="ch2" data-player="2"></div></div>
     <div class="road"><div class="ch" id="ch3" data-player="3"></div></div>
     <div class="road"><div class="ch" id="ch4" data-player="4"></div></div>
   </div>
+  <div id="winner-container" style="display: none;">
+    <h2 id="winner-message">Победитель: <span id="winner-name"></span></h2>
+    <img id="winner-image" src="" alt="Изображение победителя">
+  </div>
+  <!-- Добавляем форму для выбора бегуна и ввода ставки -->
+  <form id="bet-form">
+    <div id="message-container"></div>
+    <label for="selected-runner">Выберите бегуна:</label>
+    <div id="runner-images">
+      <label>
+        <input type="radio" name="selected-runner" value="1">
+        <img src="./assets/gif/1.gif" alt="Runner 1">
+      </label>
+      <label>
+        <input type="radio" name="selected-runner" value="2">
+        <img src="./assets/gif/2.gif" alt="Runner 2">
+      </label>
+      <label>
+        <input type="radio" name="selected-runner" value="3">
+        <img src="./assets/gif/3.gif" alt="Runner 3">
+      </label>
+      <label>
+        <input type="radio" name="selected-runner" value="4">
+        <img src="./assets/gif/4.gif" alt="Runner 4">
+      </label>
+    </div>
+    <div id="user-balance"></div>
+    <label for="bet-amount">Ставка:</label>
+    <input type="number" id="bet-amount" min="1" value="100" required>
+    <div id="current-bet">Текущая ставка: <span id="bet-amount-display">100</span></div>
+<button id="setBetButton">Установить ставку</button>
+
+  </form>
+  <button id="startButton">Старт</button>
+  <div id="winners-stats">
+    <p id="player-1-stats">Игрок 1: 0 побед</p>
+    <p id="player-2-stats">Игрок 2: 0 побед</p>
+    <p id="player-3-stats">Игрок 3: 0 побед</p>
+    <p id="player-4-stats">Игрок 4: 0 побед</p>
+  </div>
+  <script src="script.js" defer></script>
 </body>
 </html>
