@@ -20,16 +20,32 @@
   </div>
   <!-- Добавляем форму для выбора бегуна и ввода ставки -->
   <form id="bet-form">
+    <div id="message-container"></div>
     <label for="selected-runner">Выберите бегуна:</label>
-    <select id="selected-runner" required>
-      <option value="1">Бегун 1</option>
-      <option value="2">Бегун 2</option>
-      <option value="3">Бегун 3</option>
-      <option value="4">Бегун 4</option>
-    </select>
+    <div id="runner-images">
+      <label>
+        <input type="radio" name="selected-runner" value="1">
+        <img src="./assets/gif/1.gif" alt="Runner 1">
+      </label>
+      <label>
+        <input type="radio" name="selected-runner" value="2">
+        <img src="./assets/gif/2.gif" alt="Runner 2">
+      </label>
+      <label>
+        <input type="radio" name="selected-runner" value="3">
+        <img src="./assets/gif/3.gif" alt="Runner 3">
+      </label>
+      <label>
+        <input type="radio" name="selected-runner" value="4">
+        <img src="./assets/gif/4.gif" alt="Runner 4">
+      </label>
+    </div>
     <div id="user-balance"></div>
     <label for="bet-amount">Ставка:</label>
     <input type="number" id="bet-amount" min="1" value="100" required>
+    <div id="current-bet">Текущая ставка: <span id="bet-amount-display">100</span></div>
+<button id="setBetButton">Установить ставку</button>
+
   </form>
   <button id="startButton">Старт</button>
   <div id="winners-stats">

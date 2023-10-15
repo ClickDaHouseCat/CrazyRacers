@@ -14,26 +14,55 @@ document.addEventListener('DOMContentLoaded', function () {
   let userBalance = 10000;
   let winnersStats = { 1: 0, 2: 0, 3: 0, 4: 0 };
   let isResetting = false;
+  const setBetButton = document.getElementById('setBetButton');
+  const betAmountDisplay = document.getElementById('bet-amount-display')
 
   startButton.addEventListener('click', function () {
     if (!isResetting) {
+      const selectedRunnerInput = document.querySelector('input[name="selected-runner"]:checked');
+
+      if (!selectedRunnerInput) {
+        alert('Выберите бегуна перед стартом игры.');
+        return;
+      }
+
       isResetting = true;
-      startButton.disabled = true; // Блокируем кнопку во время сброса
+      startButton.disabled = true;
       resetBlocks();
       moveBlocksRight();
     }
   });
 
-  // Однократное добавление обработчика submit
-  betForm.addEventListener('submit', function (event) {
-    event.preventDefault();
-    const selectedPlayer = document.getElementById('selected-runner').value;
+  setBetButton.addEventListener('click', function () {
     const betAmount = parseInt(document.getElementById('bet-amount').value);
 
-    if (!selectedPlayer || isNaN(betAmount) || betAmount <= 0 || betAmount > userBalance) {
+    if (isNaN(betAmount) || betAmount <= 0 || betAmount > userBalance) {
       alert('Пожалуйста, введите корректные значения для ставки.');
       return;
     }
+
+    // Установка ставки и обновление отображения
+    userBalance -= betAmount;
+    displayBalance();
+    betAmountDisplay.textContent = betAmount;
+  });
+
+
+  userBalanceDisplay.textContent = 'Баланс игрока: ' + userBalance;
+
+  // Однократное добавление обработчика submit
+  betForm.addEventListener('submit', function (event) {
+    event.preventDefault();
+
+    const selectedRunnerInput = document.querySelector('input[name="selected-runner"]:checked');
+    const betAmount = parseInt(document.getElementById('bet-amount').value);
+
+    if (!selectedRunnerInput || isNaN(betAmount) || betAmount <= 0 || betAmount > userBalance) {
+      alert('Пожалуйста, введите корректные значения для ставки.');
+      return;
+    }
+
+    const selectedPlayer = selectedRunnerInput.value;
 
     // Меняем баланс выиграл/проиграл
     if (selectedPlayer == winnerBlock.dataset.player) {
@@ -44,12 +73,17 @@ document.addEventListener('DOMContentLoaded', function () {
       userBalance -= betAmount;
     }
 
+    userBalanceDisplay.textContent = 'Баланс игрока: ' + userBalance;
+
     // Обновляем отображение баланса пользователя
-    userBalanceDisplay.innerHTML = 'Баланс игрока: ' + userBalance;
+    userBalanceDisplay.textContent  = 'Баланс игрока: ' + userBalance;
   });
 
-  function moveBlocksRight() {
+  function displayBalance() {
     userBalanceDisplay.textContent = 'Баланс игрока: ' + userBalance;
+  }
+
+  function moveBlocksRight() {
 
     blocks.forEach(function (block, index) {
       let currentLeft = parseInt(window.getComputedStyle(block).left);
@@ -69,7 +103,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     if (winnerBlock !== null) {
-      winnerMessage.textContent = `Победил ${winnerBlock.style.background}`;
+      winnerMessage.textContent = `Победил ${winnerBlock.dataset.player}`;
       winnerName.textContent = `Игрок ${winnerBlock.dataset.player}`;
       winnerImage.src = `./assets/gif/${winnerBlock.dataset.player}.gif`;
       winnerContainer.style.display = 'block';
