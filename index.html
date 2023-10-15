@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
-  <script src="script.js" defer></script>
+
   <title>Move Images</title>
 </head>
 <body>
@@ -18,6 +18,26 @@
     <h2 id="winner-message">Победитель: <span id="winner-name"></span></h2>
     <img id="winner-image" src="" alt="Изображение победителя">
   </div>
+  <!-- Добавляем форму для выбора бегуна и ввода ставки -->
+  <form id="bet-form">
+    <label for="selected-runner">Выберите бегуна:</label>
+    <select id="selected-runner" required>
+      <option value="1">Бегун 1</option>
+      <option value="2">Бегун 2</option>
+      <option value="3">Бегун 3</option>
+      <option value="4">Бегун 4</option>
+    </select>
+    <div id="user-balance"></div>
+    <label for="bet-amount">Ставка (1 бегун):</label>
+    <input type="number" id="bet-amount" min="1" value="1" required>
+  </form>
   <button id="startButton">Старт</button>
+  <div id="winners-stats">
+    <p id="player-1-stats">Игрок 1: 0 побед</p>
+    <p id="player-2-stats">Игрок 2: 0 побед</p>
+    <p id="player-3-stats">Игрок 3: 0 побед</p>
+    <p id="player-4-stats">Игрок 4: 0 побед</p>
+  </div>
+  <script src="script.js" defer></script>
 </body>
 </html>
