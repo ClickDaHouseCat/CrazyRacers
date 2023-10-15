@@ -11,13 +11,14 @@ document.addEventListener('DOMContentLoaded', function () {
   let winnerBlock = null;
   let winnerTime = Infinity;
   let speeds = Array.from({ length: blocks.length }, () => Math.random() * 100 + 50);
-  let isGameRunning = false;
   let userBalance = 10000;
   let winnersStats = { 1: 0, 2: 0, 3: 0, 4: 0 };
+  let isResetting = false;
 
   startButton.addEventListener('click', function () {
-    if (!isGameRunning) {
-      isGameRunning = true;
+    if (!isResetting) {
+      isResetting = true;
+      startButton.disabled = true; // Блокируем кнопку во время сброса
       resetBlocks();
       moveBlocksRight();
     }
@@ -50,10 +51,6 @@ document.addEventListener('DOMContentLoaded', function () {
   function moveBlocksRight() {
     userBalanceDisplay.textContent = 'Баланс игрока: ' + userBalance;
 
-    if (!isGameRunning) {
-      return;
-    }
-
     blocks.forEach(function (block, index) {
       let currentLeft = parseInt(window.getComputedStyle(block).left);
       let speed = speeds[index];
@@ -80,16 +77,24 @@ document.addEventListener('DOMContentLoaded', function () {
 
       displayWinnersStats();
 
-      isGameRunning = false;
+      // Завершаем игру и сбрасываем блоки
+      resetBlocks();
+      isResetting = false;
+      startButton.disabled = false; // Разблокируем кнопку после сброса
+
       return;
     }
 
-    setTimeout(moveBlocksRight, 100);
+    if (isResetting) {
+      // Передвигаем блоки только при сбросе
+      setTimeout(moveBlocksRight, 100);
+    }
   }
 
   function resetBlocks() {
-    blocks.forEach(function (block) {
+    blocks.forEach(function (block, index) {
       block.style.left = '0';
+      speeds[index] = Math.random() * 100 + 50; // Возвращаем случайные скорости
     });
 
     winnerBlock = null;
