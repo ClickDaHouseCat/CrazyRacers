@@ -15,7 +15,8 @@ document.addEventListener('DOMContentLoaded', function () {
   let winnersStats = { 1: 0, 2: 0, 3: 0, 4: 0 };
   let isResetting = false;
   const setBetButton = document.getElementById('setBetButton');
-  const betAmountDisplay = document.getElementById('bet-amount-display')
+  const betAmountDisplay = document.getElementById('bet-amount-display');
+  let currentBetAmount = 0; // Новая переменная для хранения текущей ставки
 
   startButton.addEventListener('click', function () {
     if (!isResetting) {
@@ -26,10 +27,20 @@ document.addEventListener('DOMContentLoaded', function () {
         return;
       }
 
+      const betAmount = parseInt(document.getElementById('bet-amount').value);
+
+      if (isNaN(betAmount) || betAmount <= 0 || betAmount > userBalance) {
+        alert('Пожалуйста, введите корректные значения для ставки.');
+        return;
+      }
+
       isResetting = true;
       startButton.disabled = true;
       resetBlocks();
       moveBlocksRight();
+
+      // Сохраняем текущую ставку в буфере
+      currentBetAmount = betAmount;
     }
   });
 
@@ -47,7 +58,6 @@ document.addEventListener('DOMContentLoaded', function () {
     betAmountDisplay.textContent = betAmount;
   });
 
-
   userBalanceDisplay.textContent = 'Баланс игрока: ' + userBalance;
 
   // Однократное добавление обработчика submit
@@ -64,19 +74,24 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const selectedPlayer = selectedRunnerInput.value;
 
-    // Меняем баланс выиграл/проиграл
+    // Обновляем отображение баланса пользователя
+    displayBalance();
+
+    // Меняем баланс выиграл/проиграл только после окончания гонки
     if (selectedPlayer == winnerBlock.dataset.player) {
-      const winnings = betAmount * 3;
+      const winnings = currentBetAmount * 3;
       userBalance += winnings;
       alert(`Вы выиграли! Ваш выигрыш: ${winnings}`);
     } else {
-      userBalance -= betAmount;
+      userBalance -= currentBetAmount;
     }
 
+    // Обновляем отображение баланса пользователя после изменения баланса
+    displayBalance();
     userBalanceDisplay.textContent = 'Баланс игрока: ' + userBalance;
 
-    // Обновляем отображение баланса пользователя
-    userBalanceDisplay.textContent  = 'Баланс игрока: ' + userBalance;
+    // Отключаем кнопку "Старт" после отправки формы
+    startButton.disabled = true;
   });
 
   function displayBalance() {
@@ -84,7 +99,6 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function moveBlocksRight() {
-
     blocks.forEach(function (block, index) {
       let currentLeft = parseInt(window.getComputedStyle(block).left);
       let speed = speeds[index];
@@ -111,6 +125,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
       displayWinnersStats();
 
+      // Меняем баланс выиграл/проиграл только после окончания гонки
+      handleBetResult();
+
       // Завершаем игру и сбрасываем блоки
       resetBlocks();
       isResetting = false;
@@ -123,6 +140,27 @@ document.addEventListener('DOMContentLoaded', function () {
       // Передвигаем блоки только при сбросе
       setTimeout(moveBlocksRight, 100);
     }
+  }
+
+  function handleBetResult() {
+    const selectedRunnerInput = document.querySelector('input[name="selected-runner"]:checked');
+    const selectedPlayer = selectedRunnerInput.value;
+
+    // Меняем баланс выиграл/проиграл только после окончания гонки
+    if (selectedPlayer == winnerBlock.dataset.player) {
+      const winnings = currentBetAmount * 3;
+      userBalance += winnings;
+      alert(`Вы выиграли! Ваш выигрыш: ${winnings}`);
+    } else {
+      userBalance -= currentBetAmount;
+    }
+
+    // Обновляем отображение баланса пользователя после изменения баланса
+    displayBalance();
+    userBalanceDisplay.textContent = 'Баланс игрока: ' + userBalance;
+
+    // Отключаем кнопку "Старт" после отправки формы
+    startButton.disabled = true;
   }
 
   function resetBlocks() {
