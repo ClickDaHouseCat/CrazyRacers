@@ -18,6 +18,8 @@ document.addEventListener('DOMContentLoaded', function () {
   const betAmountDisplay = document.getElementById('bet-amount-display');
   let currentBetAmount = 0; // Новая переменная для хранения текущей ставки
   const resetButton = document.getElementById("reset");
+  let successfulBets = parseInt(localStorage.getItem('successfulBets')) || 0;
+  let totalBets = parseInt(localStorage.getItem('totalBets')) || 0;
 
   resetButton.addEventListener("click", function () {
     resetBalance();
@@ -111,6 +113,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function displayBalance() {
     userBalanceDisplay.textContent = 'Баланс игрока: ' + userBalance;
+
   }
 
   function moveBlocksRight() {
@@ -170,13 +173,37 @@ document.addEventListener('DOMContentLoaded', function () {
       userBalance -= currentBetAmount;
     }
 
+    updateBetStatistics(selectedPlayer == winnerBlock.dataset.player);
+
+
     // Обновляем отображение баланса пользователя после изменения баланса
     displayBalance();
     userBalanceDisplay.textContent = 'Баланс игрока: ' + userBalance;
 
     // Отключаем кнопку "Старт" после отправки формы
     startButton.disabled = true;
+
+
+  function updateBetStatistics(isSuccessful) {
+    totalBets++;
+    if (isSuccessful) {
+      successfulBets++;
+    }
+
+    const successPercentage = totalBets > 0 ? ((successfulBets / totalBets) * 100).toFixed(2) : 0;
+    const betStatsElement = document.getElementById('bet-stats');
+    if (betStatsElement) {
+      betStatsElement.textContent = `Удачные ставки: ${successfulBets}/${totalBets} (${successPercentage}%)`;
+    }
+
+    // Сохранение данных в localStorage
+    localStorage.setItem('successfulBets', successfulBets);
+    localStorage.setItem('totalBets', totalBets);
+
   }
+}
+
+
 
   function resetBlocks() {
     blocks.forEach(function (block, index) {
@@ -193,7 +220,10 @@ document.addEventListener('DOMContentLoaded', function () {
       const statElement = document.getElementById(`player-${player}-stats`);
       if (statElement) {
         statElement.textContent = `Игрок ${player}: ${winnersStats[player]} побед`;
-      }
+
+
     }
+  }
+
   }
 });
