@@ -18,8 +18,19 @@ document.addEventListener('DOMContentLoaded', function () {
   const betAmountDisplay = document.getElementById('bet-amount-display');
   let currentBetAmount = 0; // Новая переменная для хранения текущей ставки
   const resetButton = document.getElementById("reset");
-  let successfulBets = parseInt(localStorage.getItem('successfulBets')) || 0;
-  let totalBets = parseInt(localStorage.getItem('totalBets')) || 0;
+  let successfulBets, totalBets;
+  const betStatsElement = document.getElementById('bet-stats');
+
+  function initializeStatistics() {
+  successfulBets = parseInt(localStorage.getItem('successfulBets')) || 0;
+  totalBets = parseInt(localStorage.getItem('totalBets')) || 0;
+
+  if (betStatsElement) {
+    const successPercentage = totalBets > 0 ? ((successfulBets / totalBets) * 100).toFixed(2) : 0;
+    betStatsElement.textContent = `Удачные ставки: ${successfulBets}/${totalBets} (${successPercentage}%)`;
+  }}
+
+  initializeStatistics();
 
   resetButton.addEventListener("click", function () {
     resetBalance();
