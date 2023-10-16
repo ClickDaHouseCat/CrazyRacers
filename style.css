@@ -65,3 +65,29 @@
     width: 100px;
     height: 100px;
 }
+
+footer{
+    position: absolute;
+    height: 50px;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background: white;
+    opacity: 0.5;
+}
+
+.github img{
+    height: 40px;
+    width: 40px;
+}
+
+.rsschool{
+    width: 80px;
+}
+
+.date{
+    font-family: roboto;
+    font-size: 20px;
+}
