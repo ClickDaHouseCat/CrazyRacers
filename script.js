@@ -17,6 +17,19 @@ document.addEventListener('DOMContentLoaded', function () {
   const setBetButton = document.getElementById('setBetButton');
   const betAmountDisplay = document.getElementById('bet-amount-display');
   let currentBetAmount = 0; // Новая переменная для хранения текущей ставки
+  const resetButton = document.getElementById("reset");
+
+  resetButton.addEventListener("click", function () {
+    resetBalance();
+  })
+  function resetBalance() {
+    // Устанавливаем баланс в 10000
+    userBalance = 10000;
+
+    // Обновляем текст на странице с новым балансом
+    displayBalance();
+  }
+
 
   startButton.addEventListener('click', function () {
     if (!isResetting) {
@@ -36,6 +49,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
       isResetting = true;
       startButton.disabled = true;
+      winnerContainer.style.display = 'none'
       resetBlocks();
       moveBlocksRight();
 
@@ -69,6 +83,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (!selectedRunnerInput || isNaN(betAmount) || betAmount <= 0 || betAmount > userBalance) {
       alert('Пожалуйста, введите корректные значения для ставки.');
+      startButton.disabled = true;
       return;
     }
 
@@ -120,7 +135,7 @@ document.addEventListener('DOMContentLoaded', function () {
       winnerMessage.textContent = `Победил ${winnerBlock.dataset.player}`;
       winnerName.textContent = `Игрок ${winnerBlock.dataset.player}`;
       winnerImage.src = `./assets/gif/${winnerBlock.dataset.player}.gif`;
-      winnerContainer.style.display = 'block';
+      winnerContainer.style.display = 'flex';
       winnersStats[winnerBlock.dataset.player]++;
 
       displayWinnersStats();

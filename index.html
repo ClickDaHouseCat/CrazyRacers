@@ -4,10 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
-
+  <link rel="shortcut icon" href="./assets/gif/4.gif">
   <title>Move Images</title>
 </head>
 <body>
+  <h1>Crazy Racers - Game on pure JS - by ClickDaHouseCat</h1>
   <div class="image-container">
     <div class="road"><div class="ch" id="ch1" data-player="1"></div></div>
     <div class="road"><div class="ch" id="ch2" data-player="2"></div></div>
@@ -43,16 +44,16 @@
     <div id="user-balance"></div>
     <label for="bet-amount">Ставка:</label>
     <input type="number" id="bet-amount" min="1" value="100" required>
-    <div id="current-bet">Текущая ставка: <span id="bet-amount-display">100</span></div>
-<button id="setBetButton">Установить ставку</button>
-
+    <!-- <div id="current-bet">Текущая ставка: <span id="bet-amount-display">100</span></div> -->
+    <button id="setBetButton" disabled></button>
   </form>
-  <button id="startButton">Старт</button>
   <div id="winners-stats">
+    <button id="startButton">Старт</button>
     <p id="player-1-stats">Игрок 1: 0 побед</p>
     <p id="player-2-stats">Игрок 2: 0 побед</p>
     <p id="player-3-stats">Игрок 3: 0 побед</p>
     <p id="player-4-stats">Игрок 4: 0 побед</p>
+    <button id="reset">Сброс баланса</button>
   </div>
   <footer>
     <div class="github"><a href="https://github.com/ClickDaHouseCat"><img src="./assets/svg/github-logo-svgrepo-com.svg" alt="ClickDaHouseCat"></a></div>
